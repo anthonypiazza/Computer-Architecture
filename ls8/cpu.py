@@ -71,21 +71,20 @@ class CPU:
     def run(self):
         """Run the CPU."""
         halted = False
+        
+        while halted == False:
 
-        IR = self.ram_read(self.pc)
-        operand_a = self.ram_read(self.pc + 1),
-        operand_b = self.ram_read(self.pc + 2)
+            IR = self.ram_read(self.pc)
+            operand_a = self.ram_read(self.pc + 1),
+            operand_b = self.ram_read(self.pc + 2)
 
-        while not halted:
+            if IR == 130:
+                self.reg[operand_a[0]] = operand_b
+                self.pc += 3
 
-            if IR == 0b10000010:
-                self.reg[0] = 8
+            elif IR == 71:
+                print(self.reg[operand_a[0]])
                 self.pc += 2
 
-            elif IR == 0b01000111:
-                print(self.reg[0])
-
             elif IR == 0b00000001:
-                break
-
-        self.trace()
+                halted = True
